@@ -307,3 +307,61 @@ $size = count($arr);
 println($size);
 println($arr[$size - 1]);
 println($arr[$size - 2]);
+
+/*=======================
+18) Конструкция if else
+=======================*/
+
+function sumMoreThanTen(int $number1, int $number2): bool
+{
+	return $number1 + $number2 > 10;
+}
+
+function equals(int $number1, int $number2): bool
+{
+	return $number1 === $number2;
+}
+
+$test = 0;
+?>
+
+Long form:
+<?php
+if ($test === 0)
+{
+	echo 'верно';
+}
+?>
+
+<br>
+
+Short form:
+<?= $test === 0 ? 'верно' : ''?>
+
+<?php
+
+println();
+
+$age = 10;
+if ($age < 10 || $age > 99)
+{
+	println('$age is less than 10 or greater than 99.');
+}
+else
+{
+	$sum = getDigitsSum($age);
+	if ($sum <= 9)
+	{
+		println('Сумма цифр значения переменной $age однозначна.');
+	}
+	else
+	{
+		println('Сумма цифр значения переменной $age двузначна.');
+	}
+}
+
+$arr = [1, 2, 3, 4, 5];
+if (count($arr) === 3)
+{
+	println(array_sum($arr));
+}
