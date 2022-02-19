@@ -235,3 +235,75 @@ while ($result >= 10)
 	$result = getDigitsSum($result);
 }
 println($result);
+
+/*=======================
+17) Массивы
+=======================*/
+
+$infinity = 10;
+$infiniteArray = [];
+for ($i = 1; $i <= 10; $i++)
+{
+	$infiniteArray[] = "'" . str_repeat("x", $i) . "'";
+}
+
+function arrayFill(string $value, string $count): array
+{
+	return array_fill(0, $count, $value);
+}
+
+$sum = 0;
+$array2d = [[1, 2, 3], [4, 5], [6]];
+foreach ($array2d as $array1d)
+{
+	foreach ($array1d as $value)
+	{
+		$sum += $value;
+	}
+}
+
+$array2d = [];
+for ($i = 0; $i < 3; $i++)
+{
+	$array1d = [];
+	for ($j = 1 + 3 * $i; $j <= 3 + 3 * $i; $j++)
+	{
+		$array1d[] = $j;
+	}
+	$array2d[] = $array1d;
+}
+
+$arr = [2, 5, 3, 9];
+$result = 0;
+foreach ($arr as $i => $value)
+{
+	if ($i >= count($arr) - 1)
+	{
+		break;
+	}
+	$result += $value * $arr[$i + 1];
+}
+
+$user = [
+	'name' => 'Петр',
+	'surname' => 'Попов',
+	'patronymic' => 'Андреевич'
+];
+foreach ($user as $namePart)
+{
+	echo $namePart . ' ';
+}
+println();
+
+$date = [
+	'year' => date('Y'),
+	'month' => date('m'),
+	'day' => date('d'),
+];
+println("{$date['year']}-{$date['month']}-{$date['day']}");
+
+$arr = ['a', 'b', 'c', 'd', 'e'];
+$size = count($arr);
+println($size);
+println($arr[$size - 1]);
+println($arr[$size - 2]);
