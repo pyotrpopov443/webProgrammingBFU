@@ -68,3 +68,108 @@ $answer -= 2;
 $answer /= 2;
 $answer -= $my_num;
 println($answer);
+
+/*=======================
+14) Математические функции
+=======================*/
+
+//Работа с %
+$a = 10;
+$b = 3;
+println($a % $b);
+
+if ($a % $b === 0)
+{
+	println('Делится');
+}
+else
+{
+	println('Не делится');
+}
+
+//Работа со степенью и корнем
+$twoToTen = 2 ** 10;
+$sqrt245 = sqrt(245);
+$vec = [4, 2, 5, 19, 13, 0, 10];
+$vecLength = 0;
+foreach ($vec as $coordinate)
+{
+	$vecLength += $coordinate ** 2;
+}
+$vecLength = sqrt($vecLength);
+
+//Работа с функциями округления
+$sqrt379 = sqrt(379);
+$round0Sqrt379 = round($sqrt379, 0);
+$round1Sqrt379 = round($sqrt379, 1);
+$round2Sqrt379 = round($sqrt379, 2);
+
+$sqrt587 = sqrt(587);
+$floorCeil = [
+	'floor' => floor($sqrt587),
+	'ceil' => ceil($sqrt587)
+];
+
+//Работа с min и max
+$min = min(4, -2, 5, 19, -130, 0, 10);
+$max = max(4, -2, 5, 19, -130, 0, 10);
+
+//Работа с рандомом
+try
+{
+	println(random_int(0, 100));
+}
+catch (Exception $e)
+{
+	println('Appropriate source of randomness did not found.');
+}
+
+//Работа с модулем
+function modulusOfDifference($a, $b)
+{
+	return abs($a - $b);
+}
+$modulusOfDifference1 = modulusOfDifference($a, $b);
+$modulusOfDifference2 = modulusOfDifference(5, 10);
+
+$arr = [1, 2, -1, -2, 3, -3];
+$newArr = [];
+foreach ($arr as $value)
+{
+	$newArr[] = $value;
+}
+
+//Общее
+function getDivisors(int $number): array
+{
+	$divisors = [1];
+	for ($i = 2; $i <= $number/2; $i++)
+	{
+		if ($number % $i === 0)
+		{
+			$divisors[] = $i;
+		}
+	}
+	$divisors[] = $number;
+	return $divisors;
+}
+
+$number = 30000;
+$divisors = getDivisors($number);
+
+function getElementAddUpTo10Count(array $arr): int
+{
+	$sum = 0;
+	foreach ($arr as $i => $iValue)
+	{
+		if ($sum > 10)
+		{
+			return $i;
+		}
+		$sum += $iValue;
+	}
+	return count($arr);
+}
+
+$arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+$result = getElementAddUpTo10Count($arr);
