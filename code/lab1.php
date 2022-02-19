@@ -49,3 +49,9 @@ $months = 11;
 $days = 16;
 $daysPerLanguage = $months * $days;
 println($daysPerLanguage);
+
+/*=======================
+12) Степень
+=======================*/
+
+println(8**2);
