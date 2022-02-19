@@ -39,3 +39,13 @@ println(2+10);
 $lastMonth = 1187.23;
 $thisMonth = 1089.98;
 println($lastMonth - $thisMonth);
+
+/*=======================
+11) Умножение и деление
+=======================*/
+
+$languagesCount = 4;
+$months = 11;
+$days = 16;
+$daysPerLanguage = $months * $days;
+println($daysPerLanguage);
