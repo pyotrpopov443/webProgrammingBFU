@@ -173,3 +173,65 @@ function getElementAddUpTo10Count(array $arr): int
 
 $arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 $result = getElementAddUpTo10Count($arr);
+
+/*=======================
+15) Функции
+=======================*/
+
+function printStringReturnNumber(): int
+{
+	println(' ');
+	return 0;
+}
+
+$my_num = printStringReturnNumber();
+println($my_num);
+
+function increaseEnthusiasm(string $sad): string
+{
+	return "$sad!";
+}
+
+println(increaseEnthusiasm('Do labs'));
+
+function repeatThreeTimes(string $str): string
+{
+	return str_repeat($str, 3);
+}
+
+println(repeatThreeTimes('casino'));
+println(increaseEnthusiasm(repeatThreeTimes('Do labs')));
+
+function cut(string $str, int $limit = 10) {}
+
+function printArrayRecursive(array $arr, $i = 0): void
+{
+	if ($i >= count($arr))
+	{
+		return;
+	}
+	echo $arr[$i] . ' ';
+	printArrayRecursive($arr, $i + 1);
+}
+
+printArrayRecursive($arr);
+println();
+
+function getDigitsSum(int $number): int
+{
+	$sum = 0;
+	while ($number > 0)
+	{
+		$sum += $number % 10;
+		$number /= 10;
+	}
+	return $sum;
+}
+
+$number = 12345;
+$result = getDigitsSum($number);
+while ($result >= 10)
+{
+	$result = getDigitsSum($result);
+}
+println($result);
