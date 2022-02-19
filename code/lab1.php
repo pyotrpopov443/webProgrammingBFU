@@ -374,3 +374,18 @@ for ($i = 1; $i < 20; $i++)
 {
 	println(str_repeat('x', $i));
 }
+
+/*=======================
+20) Комбинация функций
+=======================*/
+
+$average = array_sum($arr) / count($arr);
+
+$sum1to100 = array_sum(range(1, 100));
+
+$arr = array_map('sqrt', $arr);
+
+$assocArray = array_combine(range('a','z'),range(1,26));
+
+$digitsString = '1234567890';
+$sumOfPairs = array_sum(str_split($digitsString, 2));
