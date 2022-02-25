@@ -22,7 +22,7 @@ $userData = $_SESSION['user-data'] ?? [];
 
 <?php foreach ($userData as $userInfo => $value):?>
 	<div class="user-info">
-		<?= "$userInfo: $value"?>
+		<?= htmlspecialchars("$userInfo: $value")?>
 	</div>
 <?php endforeach;?>
 

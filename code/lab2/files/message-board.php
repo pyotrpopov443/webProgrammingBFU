@@ -38,7 +38,7 @@ foreach ($messageCategories as $messageCategory)
 	<label for="message-category">
 		<select name="message-category">
 			<?php foreach ($messageCategories as $messageCategory):?>
-				<option value="<?= $messageCategory?>"><?= $messageCategory?></option>
+				<option value="<?= htmlspecialchars($messageCategory)?>"><?= htmlspecialchars($messageCategory)?></option>
 			<?php endforeach;?>
 		</select>
 	</label>
@@ -61,9 +61,9 @@ foreach ($messageCategories as $messageCategory)
 	<?php foreach ($categories as $categoryName => $category):?>
 		<?php foreach ($category as $messageTitle => $messageText):?>
 			<tr>
-				<td><?= $categoryName?></td>
-				<td><?= $messageTitle?></td>
-				<td><?= $messageText?></td>
+				<td><?= htmlspecialchars($categoryName)?></td>
+				<td><?= htmlspecialchars($messageTitle)?></td>
+				<td><?= htmlspecialchars($messageText)?></td>
 			</tr>
 		<?php endforeach;?>
 	<?php endforeach;?>

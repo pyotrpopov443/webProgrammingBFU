@@ -28,13 +28,16 @@ $_SESSION['user-age'] = $_POST['user-age'] ?? '';
 
 <form action="name-age-input.php" method="post">
 	<label for="user-first-name">Имя
-		<input type="text" name="user-first-name" placeholder="Введите имя" value="<?= $userFirstName?>">
+		<input type="text" name="user-first-name" placeholder="Введите имя"
+			   value="<?= htmlspecialchars($userFirstName)?>">
 	</label>
 	<label for="user-second-name">Фамилия
-		<input type="text" name="user-second-name" placeholder="Введите фамилию" value="<?= $userSecondName?>">
+		<input type="text" name="user-second-name" placeholder="Введите фамилию"
+			   value="<?= htmlspecialchars($userSecondName)?>">
 	</label>
 	<label for="user-age">Возраст
-		<input type="text" name="user-age" placeholder="Введите возраст" value="<?= $userAge?>">
+		<input type="text" name="user-age" placeholder="Введите возраст"
+			   value="<?= htmlspecialchars($userAge)?>">
 	</label>
 	<input type="submit" value="Сохранить">
 </form>

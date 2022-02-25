@@ -23,13 +23,13 @@ $userAge = $_SESSION['user-age'] ?? 'Не задан';
 <body>
 
 <div class="user-info">
-	Ваше имя: <?= $userFirstName?>
+	Ваше имя: <?= htmlspecialchars($userFirstName)?>
 </div>
 <div class="user-info">
-	Ваша фамилия: <?= $userSecondName?>
+	Ваша фамилия: <?= htmlspecialchars($userSecondName)?>
 </div>
 <div class="user-info">
-	Ваш возраст: <?= $userAge?>
+	Ваш возраст: <?= htmlspecialchars($userAge)?>
 </div>
 
 </body>

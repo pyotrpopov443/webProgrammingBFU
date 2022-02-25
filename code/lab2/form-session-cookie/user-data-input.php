@@ -24,13 +24,16 @@ $_SESSION['user-data'] = $_POST['user-data'] ?? [];
 
 <form action="user-data-input.php" method="post">
 	<label for="user-first-name">Имя
-		<input type="text" name="user-data[Имя]" placeholder="Введите имя" value="<?= $userData['Имя'] ?? ''?>">
+		<input type="text" name="user-data[Имя]" placeholder="Введите имя"
+			   value="<?= htmlspecialchars($userData['Имя'] ?? '')?>">
 	</label>
 	<label for="user-second-name">Фамилия
-		<input type="text" name="user-data[Фамилия]" placeholder="Введите фамилию" value="<?= $userData['Фамилия'] ?? ''?>">
+		<input type="text" name="user-data[Фамилия]" placeholder="Введите фамилию"
+			   value="<?= htmlspecialchars($userData['Фамилия'] ?? '')?>">
 	</label>
 	<label for="user-age">Возраст
-		<input type="text" name="user-data[Возраст]" placeholder="Введите возраст" value="<?= $userData['Возраст'] ?? ''?>">
+		<input type="text" name="user-data[Возраст]" placeholder="Введите возраст"
+			   value="<?= htmlspecialchars($userData['Возраст'] ?? '')?>">
 	</label>
 	<input type="submit" value="Сохранить">
 </form>
