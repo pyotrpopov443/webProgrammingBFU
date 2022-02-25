@@ -12,7 +12,7 @@ $categories = [];
 foreach ($messageCategories as $messageCategory)
 {
 	$categories[$messageCategory] = [];
-	$fileNames = array_diff(scandir($messageCategory), array('..', '.'));
+	$fileNames = array_diff(scandir($messageCategory), array('..', '.', '.gitignore'));
 	foreach ($fileNames as $fileName)
 	{
 		$categories[$messageCategory][$fileName] = file_get_contents("$messageCategory/$fileName");
