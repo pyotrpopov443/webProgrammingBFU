@@ -2,43 +2,59 @@
 
 require_once '../vendor/autoload.php';
 
-$client = new Google\Client();
-$client->setApplicationName("Message Board");
-$client->setScopes(Google\Service\Sheets::SPREADSHEETS);
-$client->setDeveloperKey("AIzaSyCqz9Dtorg_cT4LYcim0qW6Jwn5ItSxIlo");
-putenv('GOOGLE_APPLICATION_CREDENTIALS=../credentials.json');
-$client->useApplicationDefaultCredentials();
-
-$service = new Google\Service\Sheets($client);
+$service = new Google\Service\Sheets(getClient());
 $spreadsheetId = '1eYDMg9MVygqfByQmzYuGNBrj0dEh4hk7tzLr3MB_SkU';
+
+$messageBoardHeader = getHeader($service, $spreadsheetId);
+$messageBoardCategories = getCategories($service, $spreadsheetId);
+$messageBoardContent = getContent($service, $spreadsheetId);
 
 if (isset($_POST['message-category'], $_POST['message-title'], $_POST['message-text']) &&
 	$_POST['message-category'] !== '' && $_POST['message-title'] !== '' && $_POST['message-text'] !== '')
 {
-	$insertRange = 'message-board!B:D';
-	$values = [
-		[$_POST['message-category'], $_POST['message-title'], $_POST['message-text']]
-	];
-	$body = new Google_Service_Sheets_ValueRange([
-		 'values' => $values
-	 ]);
-	$params = [
-		'valueInputOption' => "RAW"
-	];
-	$result = $service->spreadsheets_values->append($spreadsheetId, $insertRange, $body, $params);
+	$message = [$_POST['message-category'], $_POST['message-title'], $_POST['message-text']];
+
+	$i = count($messageBoardContent) + 1;
+	$updateRange = "message-board!B$i:D$i";
+	$body = new Google_Service_Sheets_ValueRange();
+	$body->setValues([$message]);
+	$params = ['valueInputOption' => "RAW"];
+	$service->spreadsheets_values->update($spreadsheetId, $updateRange, $body, $params);
+
+	$messageBoardContent[] = $message;
 }
 
-$headerRange = 'message-board!B1:D1';
-$response = $service->spreadsheets_values->get($spreadsheetId, $headerRange);
-$messageBoardHeader = $response->getValues()[0];
+function getClient(): Google\Client
+{
+	$client = new Google\Client();
+	$client->setApplicationName("Message Board");
+	$client->setScopes(Google\Service\Sheets::SPREADSHEETS);
+	$client->setDeveloperKey("AIzaSyCqz9Dtorg_cT4LYcim0qW6Jwn5ItSxIlo");
+	putenv('GOOGLE_APPLICATION_CREDENTIALS=../credentials.json');
+	$client->useApplicationDefaultCredentials();
+	return $client;
+}
 
-$categoriesRange = 'message-board!A2:A';
-$response = $service->spreadsheets_values->get($spreadsheetId, $categoriesRange);
-$messageBoardCategories = $response->getValues();
+function getHeader(Google\Service\Sheets $service, string $spreadsheetId): array
+{
+	$headerRange = 'message-board!B1:D1';
+	$response = $service->spreadsheets_values->get($spreadsheetId, $headerRange);
+	return $response->getValues()[0];
+}
 
-$contentRange = 'message-board!B2:D';
-$response = $service->spreadsheets_values->get($spreadsheetId, $contentRange);
-$messageBoardContent = $response->getValues();
+function getCategories(Google\Service\Sheets $service, string $spreadsheetId): array
+{
+	$categoriesRange = 'message-board!A2:A';
+	$response = $service->spreadsheets_values->get($spreadsheetId, $categoriesRange);
+	return $response->getValues();
+}
+
+function getContent(Google\Service\Sheets $service, string $spreadsheetId): array
+{
+	$contentRange = 'message-board!B2:D';
+	$response = $service->spreadsheets_values->get($spreadsheetId, $contentRange);
+	return $response->getValues();
+}
 
 ?>
 
