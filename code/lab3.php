@@ -3,17 +3,30 @@
 require_once '../vendor/autoload.php';
 
 $client = new Google\Client();
-$client->setApplicationName("Client_Library_Examples");
-$client->setDeveloperKey("AIzaSyAibgRREZLohdewcd3W1t8vua2m5ZB8FHQ");
+$client->setApplicationName("Message Board");
+$client->setScopes(Google\Service\Sheets::SPREADSHEETS);
+$client->setDeveloperKey("AIzaSyCqz9Dtorg_cT4LYcim0qW6Jwn5ItSxIlo");
+putenv('GOOGLE_APPLICATION_CREDENTIALS=../credentials.json');
+$client->useApplicationDefaultCredentials();
 
 $service = new Google\Service\Sheets($client);
 $spreadsheetId = '1eYDMg9MVygqfByQmzYuGNBrj0dEh4hk7tzLr3MB_SkU';
 
-// if (isset($_POST['message-category'], $_POST['message-title'], $_POST['message-text']) &&
-// 	$_POST['message-category'] !== '' && $_POST['message-title'] !== '' && $_POST['message-text'] !== '')
-// {
-// 	$service->spreadsheets_values->append($spreadsheetId, );
-// }
+if (isset($_POST['message-category'], $_POST['message-title'], $_POST['message-text']) &&
+	$_POST['message-category'] !== '' && $_POST['message-title'] !== '' && $_POST['message-text'] !== '')
+{
+	$insertRange = 'message-board!B:D';
+	$values = [
+		[$_POST['message-category'], $_POST['message-title'], $_POST['message-text']]
+	];
+	$body = new Google_Service_Sheets_ValueRange([
+		 'values' => $values
+	 ]);
+	$params = [
+		'valueInputOption' => "RAW"
+	];
+	$result = $service->spreadsheets_values->append($spreadsheetId, $insertRange, $body, $params);
+}
 
 $headerRange = 'message-board!B1:D1';
 $response = $service->spreadsheets_values->get($spreadsheetId, $headerRange);
