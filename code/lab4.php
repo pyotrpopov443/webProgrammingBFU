@@ -16,13 +16,7 @@ if (isset($_POST['message-category'], $_POST['message-title'], $_POST['message-t
 		'DESCRIPTION' => $_POST['message-text']
 	]);
 
-	$query = "
-		INSERT INTO webProgrammingBFU.ad (EMAIL, CATEGORY, TITLE, DESCRIPTION)
-		VALUES (?, ?, ?, ?);
-	";
-	$preparedStatement = $dbConnection->prepare($query);
-	$preparedStatement->bind_param('ssss', ...$message);
-	$preparedStatement->execute();
+	addMessage($dbConnection, $message);
 
 	$messageBoardContent[] = $message;
 }
@@ -75,7 +69,19 @@ function getContent(mysqli $dbConnection): array
 	return $messages;
 }
 
-function buildMessage(array $messageData) {
+function addMessage(mysqli $dbConnection, array $message): void
+{
+	$query = "
+		INSERT INTO webProgrammingBFU.ad (EMAIL, CATEGORY, TITLE, DESCRIPTION)
+		VALUES (?, ?, ?, ?);
+	";
+	$preparedStatement = $dbConnection->prepare($query);
+	$preparedStatement->bind_param('ssss', ...$message);
+	$preparedStatement->execute();
+}
+
+function buildMessage(array $messageData): array
+{
 	return [
 		$messageData['EMAIL'],
 		$messageData['CATEGORY'],
