@@ -6,17 +6,23 @@ $messageBoardHeader = getHeader();
 $messageBoardCategories = getCategories($dbConnection);
 $messageBoardContent = getContent($dbConnection);
 
-if (isset($_POST['message-category'], $_POST['message-title'], $_POST['message-text']) &&
-	$_POST['message-category'] !== '' && $_POST['message-title'] !== '' && $_POST['message-text'] !== '')
+if (isset($_POST['message-category'], $_POST['message-title'], $_POST['message-text'], $_POST['email']) &&
+	$_POST['message-category'] !== '' && $_POST['message-title'] !== '' && $_POST['message-text'] !== '' && $_POST['email'] !== '')
 {
-	$message = ['plug@email', $_POST['message-category'], $_POST['message-title'], $_POST['message-text']];
+	$message = buildMessage([
+		'EMAIL' => $_POST['email'],
+		'CATEGORY' => $_POST['message-category'],
+		'TITLE' => $_POST['message-title'],
+		'DESCRIPTION' => $_POST['message-text']
+	]);
 
 	$query = "
-		INSERT INTO webProgrammingBFU.ad (EMAIL, TITLE, DESCRIPTION, CATEGORY)
+		INSERT INTO webProgrammingBFU.ad (EMAIL, CATEGORY, TITLE, DESCRIPTION)
 		VALUES (?, ?, ?, ?);
 	";
 	$preparedStatement = $dbConnection->prepare($query);
-	$preparedStatement->execute($message);
+	$preparedStatement->bind_param('ssss', ...$message);
+	$preparedStatement->execute();
 
 	$messageBoardContent[] = $message;
 }
@@ -37,7 +43,7 @@ function getConnection(): mysqli
 
 function getHeader(): array
 {
-	return ['Категория объявления', 'Заголовок объявления', 'Текст объявления'];
+	return ['Адрес электронной почты', 'Категория объявления', 'Заголовок объявления', 'Текст объявления'];
 }
 
 function getCategories(mysqli $dbConnection): array
@@ -64,9 +70,18 @@ function getContent(mysqli $dbConnection): array
 
 	$messages = [];
 	foreach ($result as $row) {
-		$messages[] = [$row['EMAIL'], $row['TITLE'], $row['DESCRIPTION'], $row['CATEGORY']];
+		$messages[] = buildMessage($row);
 	}
 	return $messages;
+}
+
+function buildMessage(array $messageData) {
+	return [
+		$messageData['EMAIL'],
+		$messageData['CATEGORY'],
+		$messageData['TITLE'],
+		$messageData['DESCRIPTION']
+	];
 }
 
 ?>
@@ -81,7 +96,7 @@ function getContent(mysqli $dbConnection): array
 </head>
 <body>
 
-<form action="lab3.php" method="post">
+<form action="lab4.php" method="post">
 	<label for="email">Email
 		<input type="email" name="email">
 	</label>
