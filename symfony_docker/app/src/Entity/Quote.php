@@ -32,7 +32,19 @@ class Quote
      */
     private $year;
 
-    public function getId(): ?int
+	/**
+	 * @param $quote
+	 * @param $historian
+	 * @param $year
+	 */
+	public function __construct($quote, $historian, $year)
+	{
+		$this->quote = $quote;
+		$this->historian = $historian;
+		$this->year = $year;
+	}
+
+	public function getId(): ?int
     {
         return $this->id;
     }
