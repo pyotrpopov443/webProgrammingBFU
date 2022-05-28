@@ -1,13 +1,18 @@
 <?php
 
-$route = $_SERVER['REQUEST_URI'];
+include 'View/TemplateManager.php';
+include 'Repository/MysqlDatabase.php';
+include 'Controller/MessageController.php';
+include 'Entity/Message.php';
+
+$route = strtok($_SERVER["REQUEST_URI"], '?');
+
+if ($route === '/messages')
+{
+	(new MessageController())->messageBoard($_REQUEST);
+}
 
 if ($route === '/addMessage')
 {
-	echo 'add message to db';
-}
-
-if ($route === '/')
-{
-	echo 'message board';
+	(new MessageController())->addMessage($_REQUEST);
 }

@@ -1,8 +1,7 @@
 <?php
 
-/** @var $messageBoardCategories array */
-/** @var $messageBoardHeader array */
-/** @var $messageBoardContent array */
+/** @var $categories array */
+/** @var $messages array<Message> */
 
 ?>
 
@@ -16,13 +15,13 @@
 </head>
 <body>
 
-<form action="./addMessage" method="post">
+<form action="addMessage" method="post">
 	<label for="email">Email
 		<input type="email" name="email">
 	</label>
 	<label for="message-category">
 		<select name="message-category">
-			<?php foreach ($messageBoardCategories as $categoryName):?>
+			<?php foreach ($categories as $categoryName):?>
 				<option value="<?= htmlspecialchars($categoryName)?>"><?= htmlspecialchars($categoryName)?></option>
 			<?php endforeach;?>
 		</select>
@@ -39,15 +38,17 @@
 <table>
 	<caption>Объявления</caption>
 	<tr>
-		<?php foreach ($messageBoardHeader as $columnName):?>
-			<th><?= htmlspecialchars($columnName)?></th>
-		<?php endforeach;?>
+		<th>Адрес электронной почты</th>
+		<th>Категория объявления</th>
+		<th>Заголовок объявления</th>
+		<th>Текст объявления</th>
 	</tr>
-	<?php foreach ($messageBoardContent as $row):?>
+	<?php foreach ($messages as $message):?>
 		<tr>
-			<?php foreach ($row as $value):?>
-				<td><?= htmlspecialchars($value)?></td>
-			<?php endforeach;?>
+			<td><?= htmlspecialchars($message->getEmail())?></td>
+			<td><?= htmlspecialchars($message->getCategory())?></td>
+			<td><?= htmlspecialchars($message->getTitle())?></td>
+			<td><?= htmlspecialchars($message->getDescription())?></td>
 		</tr>
 	<?php endforeach;?>
 </table>
