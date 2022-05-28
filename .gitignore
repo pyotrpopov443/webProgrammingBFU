@@ -2,3 +2,5 @@
 code/lab2/files/Аниме/*
 code/lab2/files/Очень интересная лаба/*
 code/lab2/files/Я люблю PHP/*
+symfony_docker/app/var
+symfony_docker/app/vendor
